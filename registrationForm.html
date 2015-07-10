@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<script src="cordova.js"></script>
+	<script>
+	function pageLoaded()
+	{
+		document.addEventListener("deviceready",phoneReady,false);
+	}
+	function phoneReady()
+	{
+	}
+	function initCamera()
+	{
+		
+		var options = {
+			quality:80,
+			destinationType:DATA_URL 
+			allowEdit:true,
+			encodingType:JPEG,
+			PictureSourceType:CAMERA  
+		}
+			
+		navigator.camera.getPicture(onSuccess,onFail,options);
+	}
+	function initAlbum()
+	{
+		
+		var options = {
+			quality:80,
+			allowEdit:true,
+			encodingType:JPEG,
+			PictureSourceType: PHOTOLIBRARY  
+		}
+			
+		navigator.camera.getPicture(onSuccess,onFail,options);
+	}
+	function register()
+	{
+	}
+	function onSuccess(imageURL)
+	{	
+		document.getElementById("pic").src = "data:image/jpeg;base64," + imageURL;
+	}
+	function onFail(mesage)
+	{
+		//message = reason for failure
+	}
+	
+	</script>
+	<style>
+	#header 
+	{
+		background-color:black;
+		color:white;
+		text-align:center;
+		padding:5px;
+		width :455px;
+	}
+	div#maindiv
+	{
+		border: solid 1px black;
+		padding: 5px;
+		height:500px;
+		width:450px;
+	}
+	div#picdiv
+	{
+		border: solid 1px black;
+		padding: 10px;
+		height:250px;
+		width:250px;
+		text-align:center;
+	}
+	@media screen and (max-width:500px) and (min-width:200px)
+	{
+		div
+		{
+			width: 40%;
+		}
+		h1
+		{
+			font-size:1em;
+		}
+	}
+	</style>
+</head>
+<body>
+	<body onload="pageLoaded()">
+	<form method="get" action="process.php">
+	<div id="header">
+		<h1>Registration Application</h1>
+	</div>
+	<div id="maindiv"><center>
+		<div id="picdiv">
+			<img src="image.jpg" width = "250px" height = "250px" id="pic" height="400" />
+		</div>
+		</br>
+		<input type="button" value="Take Photo" onclick="initCamera()" />
+		<input type="button" value="from Album" onclick="initAlbum()" />
+		</br></br>Name :
+			<input type="type" placeholder="Please enter your name" id="name" required="required"/>
+		</br></br>Email :
+			<input type="email" pattern="^\w+([\.\-])\w+)*\@\w+([\.\-]w+)*\.[a-zA-Z]{2,11}$" placeholder="Please enter your email" id="usermail" required="required"/>
+	<br/></br>
+	<input type="submit" id="submit" value="Register" onclick="register()" a href="#">
+	</form>
+	</div>
+
+	
+</body>
+</html>
